@@ -19,7 +19,7 @@ public class ParameterizedWebTest {
         open("https://github.com/");
         $(".header-search-input").click();
         $(".header-search-input").setValue(testData).pressEnter();
-        $$("a.v-align-middle").first().shouldHave(text(testData));
+        $("a.v-align-middle").shouldHave(text(testData));
     }
 
     @CsvSource(value = {
@@ -31,23 +31,23 @@ public class ParameterizedWebTest {
         open("https://github.com/");
         $(".header-search-input").click();
         $(".header-search-input").setValue(testData).pressEnter();
-        $$("p.mb-1").first().shouldHave(text(resultDescription));
+        $("p.mb-1").shouldHave(text(resultDescription));
     }
 
     static Stream<Arguments> searchInGithubDescriptionMethodSourceData() {
         return Stream.of(
-                Arguments.of("Selenide", "Concise UI Tests with Java!", true),
-                Arguments.of("Allure", "Report is a flexible, lightweight multi-language test reporting tool", false)
+                Arguments.of("Selenide", "Concise UI Tests with Java!"),
+                Arguments.of("Allure", "Report is a flexible, lightweight multi-language test reporting tool")
         );
     }
 
     @MethodSource("searchInGithubDescriptionMethodSourceData")
-    @ParameterizedTest(name = "Тестирование поиска Github с тестовыми данными: {0}, {1}, {3}")
-    void searchInGithubDescriptionMethodSource(String testData, String resultDescription, boolean flag) {
-        System.out.println(flag);
+    @ParameterizedTest(name = "Тестирование поиска Github с тестовыми данными: {0}, {1}")
+    void searchInGithubDescriptionMethodSource(String testData, String resultDescription) {
+
         open("https://github.com/");
         $(".header-search-input").click();
         $(".header-search-input").setValue(testData).pressEnter();
-        $$("p.mb-1").first().shouldHave(text(resultDescription));
+        $("p.mb-1").shouldHave(text(resultDescription));
     }
 }
